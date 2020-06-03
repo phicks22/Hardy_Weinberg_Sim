@@ -5,12 +5,13 @@ import numpy as np
 
 class Population:
 
-    def __init__(self):
-        self.p = 0.9
-        self.q = 0.1
+    def __init__(self, p, npop, gen, u, v):
+        self.p = p
         self.fitness_dict = dict.fromkeys({'w11', 'w12', 'w22'}, 1.0)
-        self.npop = 1
-        self.generations = 10
+        self.npop = npop
+        self.gen = gen
+        self.u = u
+        self.v = v
 
     def set_fitness(self):
         w11 = float(input('w11 = '))
@@ -21,14 +22,16 @@ class Population:
         self.fitness_dict['w22'] = w22
 
     def set_parameters(self):
-        self.npop = int(input('How many populations? '))
-        self.generations = int(input('How many generations? '))
+        self.npop = int(input('Populations = '))
+        self.generations = int(input('Generations = '))
         w11 = float(input('w11 = '))
         self.fitness_dict['w11'] = w11
         w12 = float(input('w12 = '))
         self.fitness_dict['w12'] = w12
         w22 = float(input('w22 = '))
         self.fitness_dict['w22'] = w22
+        self.u = float(input('Forward mutation frequency = '))
+        self.v = float(input('Backward mutation frequency = '))
 
 
 
@@ -46,15 +49,14 @@ class Population:
         p_over_gen_array = [self.p]
         for gen in range(1, generations):
             w_hat = (self.fitness_dict['w11'] * math.pow(self.p, 2)) + (self.fitness_dict['w12'] * (
-                    2 * self.p * self.q)) + (self.fitness_dict['w22'] * math.pow(self.q, 2))
-            p_t = ((math.pow(self.p, 2) * self.fitness_dict['w11']) + (self.p * self.q * self.fitness_dict['w12']) /
+                    2 * self.p * (1 - self.p))) + (self.fitness_dict['w22'] * math.pow((1 - self.p), 2))
+            p_t = ((math.pow(self.p, 2) * self.fitness_dict['w11']) + (self.p * (1 - self.p) * self.fitness_dict['w12']) /
                    w_hat)
             p_over_gen_array.append(p_t)
 
             if p_t <= 0:
                 break
             self.p = p_t
-            self.q = 1 - p_t
             generations = generations
         self.plot(p_over_gen_array)
         print(p_over_gen_array)

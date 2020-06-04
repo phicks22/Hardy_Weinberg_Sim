@@ -1,17 +1,18 @@
 import math
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 class Population:
 
-    def __init__(self, p, npop, gen, u, v):
-        self.p = p
+    def __init__(self):
+        self.p = 0
         self.fitness_dict = dict.fromkeys({'w11', 'w12', 'w22'}, 1.0)
-        self.npop = npop
-        self.gen = gen
-        self.u = u
-        self.v = v
+        self.npop = 0
+        self.generations = 0
+        # self.u = u
+        # self.v = v
 
     def set_fitness(self):
         w11 = float(input('w11 = '))
@@ -22,16 +23,17 @@ class Population:
         self.fitness_dict['w22'] = w22
 
     def set_parameters(self):
+        self.p = float(input('Frequency p = '))
         self.npop = int(input('Populations = '))
-        self.gen = int(input('Generations = '))
+        self.generations = int(input('Generations = '))
         w11 = float(input('w11 = '))
         self.fitness_dict['w11'] = w11
         w12 = float(input('w12 = '))
         self.fitness_dict['w12'] = w12
         w22 = float(input('w22 = '))
         self.fitness_dict['w22'] = w22
-        self.u = float(input('Forward mutation frequency = '))
-        self.v = float(input('Backward mutation frequency = '))
+        # self.u = float(input('Forward mutation frequency = '))
+        # self.v = float(input('Backward mutation frequency = '))
 
     # def change_fitness(self):
     #     genotype = input('Which genotype? ')
@@ -42,10 +44,11 @@ class Population:
     #     self.fitness_dict[genotype] = new_value
 
     def freq_equation(self):
-        global gen
-        gen = self.gen
+        global generations, npop
+        generations = self.generations
+        npop = self.npop
         p_over_gen_array = [self.p]
-        for g in range(1, gen):
+        for g in range(1, generations):
             w_hat = (self.fitness_dict['w11'] * math.pow(self.p, 2)) + (self.fitness_dict['w12'] * (
                     2 * self.p * (1 - self.p))) + (self.fitness_dict['w22'] * math.pow((1 - self.p), 2))
             p_t = ((math.pow(self.p, 2) * self.fitness_dict['w11']) + (self.p * (1 - self.p) * self.fitness_dict['w12'])
@@ -55,27 +58,29 @@ class Population:
             if p_t <= 0:
                 break
             self.p = p_t
-            gen = gen
+            generations = generations
+            npop = npop
         self.plot(p_over_gen_array)
         print(p_over_gen_array)
 
     def plot(self, p_over_gen_array):
-        t = np.arange(0.0, gen, 1)
-        s = p_over_gen_array
+        for p in range(1, npop):
+            t = np.arange(0.0, generations, 1)
+            s = p_over_gen_array
 
-        fig, ax = plt.subplots()
-        ax.plot(t, s)
+            fig, ax = plt.subplots()
+            ax.plot(t, s)
 
-        ax.set(xlabel='Generations', ylabel='Frequency',
-               title='p')
-        ax.grid()
+            ax.set(xlabel='Generations', ylabel='Frequency',
+                   title='p')
+            ax.grid()
 
-        plt.show()
+            plt.show()
 
 
 pop1 = Population()
 
-pop1.set_fitness()
+pop1.set_parameters()
 pop1.freq_equation()
 
 # Fitness

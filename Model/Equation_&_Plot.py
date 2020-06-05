@@ -7,12 +7,12 @@ import numpy as np
 class Population:
 
     def __init__(self):
-        self.p = 0
+        self.p = 0.0
         self.fitness_dict = dict.fromkeys({'w11', 'w12', 'w22'}, 1.0)
         self.npop = 0
         self.generations = 0
-        # self.u = u
-        # self.v = v
+        self.u = 0.0
+        self.v = 0.0
 
     def set_fitness(self):
         w11 = float(input('w11 = '))
@@ -32,8 +32,8 @@ class Population:
         self.fitness_dict['w12'] = w12
         w22 = float(input('w22 = '))
         self.fitness_dict['w22'] = w22
-        # self.u = float(input('Forward mutation frequency = '))
-        # self.v = float(input('Backward mutation frequency = '))
+        self.u = float(input('Forward mutation frequency = '))
+        self.v = float(input('Backward mutation frequency = '))
 
     # def change_fitness(self):
     #     genotype = input('Which genotype? ')
@@ -44,38 +44,43 @@ class Population:
     #     self.fitness_dict[genotype] = new_value
 
     def freq_equation(self):
-        global generations, npop
+        global generations, npop, p_tf
         generations = self.generations
         npop = self.npop
-        p_over_gen_array = [self.p]
-        for g in range(1, generations):
-            w_hat = (self.fitness_dict['w11'] * math.pow(self.p, 2)) + (self.fitness_dict['w12'] * (
-                    2 * self.p * (1 - self.p))) + (self.fitness_dict['w22'] * math.pow((1 - self.p), 2))
-            p_t = ((math.pow(self.p, 2) * self.fitness_dict['w11']) + (self.p * (1 - self.p) * self.fitness_dict['w12'])
-                   / w_hat)
-            p_over_gen_array.append(p_t)
+        for p in range(0, npop):
+            p_over_gen_array = [self.p]
+            for g in range(1, generations):
+                w_hat = (self.fitness_dict['w11'] * math.pow(self.p, 2)) + (self.fitness_dict['w12'] * (
+                        2 * self.p * (1 - self.p))) + (self.fitness_dict['w22'] * math.pow((1 - self.p), 2))
+                p_t = ((math.pow(self.p, 2) * self.fitness_dict['w11']) + (self.p * (1 - self.p) * self.fitness_dict['w12'])
+                       / w_hat)
+                if self.u or self.v > 0:
+                    p_tf = p_t(1 - self.u) + (1 - p_t)(self.v)
+                    p_over_gen_array.append(p_tf)
+                else:
+                    p_tf = p_t
+                    p_over_gen_array.append(p_tf)
 
-            if p_t <= 0:
-                break
-            self.p = p_t
-            generations = generations
-            npop = npop
-        self.plot(p_over_gen_array)
-        print(p_over_gen_array)
+                if p_tf <= 0:
+                    break
+                self.p = p_tf
+                generations = generations
+                npop = npop
+            self.plot(p_over_gen_array)
+            print(p_over_gen_array)
 
     def plot(self, p_over_gen_array):
-        for p in range(1, npop):
-            t = np.arange(0.0, generations, 1)
-            s = p_over_gen_array
+        t = np.arange(0.0, generations, 1)
+        s = p_over_gen_array
 
-            fig, ax = plt.subplots()
-            ax.plot(t, s)
+        fig, ax = plt.subplots()
+        ax.plot(t, s)
 
-            ax.set(xlabel='Generations', ylabel='Frequency',
-                   title='p')
-            ax.grid()
+        ax.set(xlabel='Generations', ylabel='Frequency',
+               title='p')
+        ax.grid()
 
-            plt.show()
+        plt.show()
 
 
 pop1 = Population()
@@ -91,5 +96,12 @@ pop1.freq_equation()
 # p_t+1 = p_t(1-u) + q_t(v)
 # u = forward mutation rate
 # v = backward mutation rate
+
+# Genetic Drift
+# Binomial Distribution -> Pr(k | p, n) = [n! / k! (n - k)!]pk(1-p)n-k
+# n! is permutation
+# k! (n - k)! is combination -> all possible combinations
+# pn(pqn - 1)
+# Don't add more variables ->
 
 # * (self.fitness_dict['w22']/w_hat))) / (self.fitness_dict['w11']/w_hat)))

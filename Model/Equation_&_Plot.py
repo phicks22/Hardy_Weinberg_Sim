@@ -47,15 +47,21 @@ class Population:
         global generations, npop, p_tf
         generations = self.generations
         npop = self.npop
+        u = float(self.u)
+        v = float(self.v)
         for p in range(0, npop):
             p_over_gen_array = [self.p]
             for g in range(1, generations):
+
+                # fitness
                 w_hat = (self.fitness_dict['w11'] * math.pow(self.p, 2)) + (self.fitness_dict['w12'] * (
                         2 * self.p * (1 - self.p))) + (self.fitness_dict['w22'] * math.pow((1 - self.p), 2))
                 p_t = ((math.pow(self.p, 2) * self.fitness_dict['w11']) + (self.p * (1 - self.p) * self.fitness_dict['w12'])
                        / w_hat)
-                if self.u or self.v > 0:
-                    p_tf = p_t(1 - self.u) + (1 - p_t)(self.v)
+
+                # mutation
+                if self.u or self.v > 0.0:
+                    p_tf = p_t * (1.0 - u) + (1.0 - p_t) * v
                     p_over_gen_array.append(p_tf)
                 else:
                     p_tf = p_t
@@ -68,6 +74,9 @@ class Population:
                 npop = npop
             self.plot(p_over_gen_array)
             print(p_over_gen_array)
+
+    # TODO: plot both populations on same graph
+    # TODO: make list for freq_p of each population and run separate loop for each
 
     def plot(self, p_over_gen_array):
         t = np.arange(0.0, generations, 1)

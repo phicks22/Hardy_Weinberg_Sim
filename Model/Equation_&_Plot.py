@@ -13,6 +13,8 @@ class Population:
         self.generations = 0
         self.u = 0.0
         self.v = 0.0
+        self.inf_pop = False
+        self.pop_size = 0
 
     def set_fitness(self):
         w11 = float(input('w11 = '))
@@ -34,6 +36,8 @@ class Population:
         self.fitness_dict['w22'] = w22
         self.u = float(input('Forward mutation frequency = '))
         self.v = float(input('Backward mutation frequency = '))
+        self.inf_pop = bool(input('Infinite population = '))
+        self.pop_size = int(input('Population size = '))
 
     # def change_fitness(self):
     #     genotype = input('Which genotype? ')
@@ -56,8 +60,10 @@ class Population:
                 # fitness
                 w_hat = (self.fitness_dict['w11'] * math.pow(self.p, 2)) + (self.fitness_dict['w12'] * (
                         2 * self.p * (1 - self.p))) + (self.fitness_dict['w22'] * math.pow((1 - self.p), 2))
-                p_t = ((math.pow(self.p, 2) * self.fitness_dict['w11']) + (self.p * (1 - self.p) * self.fitness_dict['w12'])
+                p_t = ((math.pow(self.p, 2) * self.fitness_dict['w11']) + (
+                            self.p * (1 - self.p) * self.fitness_dict['w12'])
                        / w_hat)
+                hetero = (2 * self.p * (1 - self.p) * self.fitness_dict['w12']) / w_hat
 
                 # mutation
                 if self.u or self.v > 0.0:
@@ -66,6 +72,16 @@ class Population:
                 else:
                     p_tf = p_t
                     p_over_gen_array.append(p_tf)
+
+                if self.inf_pop == False:
+                    tpr = ((math.factorial(2 * npop)) / ((math.factorial(2 * npop * p_t)) * (math.factorial((2*npop) -
+                            (2 * npop * p_t))))) * (math.pow(p_t, (2 * npop * p_t))) * (math.pow((1 - p_t), (2 * npop) -
+                            (2 * npop * p_t)))
+                    # np_t = np.random.binomial(1, p_t, self.pop_size)
+                    if p_t < 1:
+                        hetero = np.random.binomial(1, (self.pop_size - np_t), (hetero / (1 - p_t)))
+                    else:
+                        hetero < - 0
 
                 if p_tf <= 0:
                     break
@@ -77,6 +93,7 @@ class Population:
 
     # TODO: plot both populations on same graph
     # TODO: make list for freq_p of each population and run separate loop for each
+    # TODO: Incorporate binomial distribution and genetic drift for population
 
     def plot(self, p_over_gen_array):
         t = np.arange(0.0, generations, 1)

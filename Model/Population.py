@@ -6,7 +6,6 @@ import numpy as np
 class Population:
 
     def __init__(self, p, w11, w12, w22, n, gen, u, v, inf_pop):
-        
         """ Population class for setting a population to calculate object attributes after
          the number of generations given.
 
@@ -33,14 +32,13 @@ class Population:
         self.inf_pop = inf_pop
 
     def fitness(self):
-
         """Calculates the frequency of p after selection.
 
         Args:
             None
 
         Returns:
-            self.p
+            None
 
         """
         w_bar = (self.w11 * math.pow(self.p, 2)) + (self.w12 * (2 * self.p * (1 - self.p))) + \
@@ -48,4 +46,36 @@ class Population:
         p_t = ((math.pow(self.p, 2) * self.w11) + (self.p * (1 - self.p) * self.w12) / w_bar)
         self.p = p_t
 
-        return self.p
+    def mutation(self):
+        """Calculates the frequency of p after mutation.
+
+        Args:
+            None
+
+        Returns:
+            None
+
+        """
+
+        p_t = (self.p(1 - self.u)) + ((1 - self.p) * self.v)
+        self.p = p_t
+
+    def migration(self):
+        """Calculates the frequency of p after migration
+
+        Args:
+            None
+
+        Returns:
+            None
+
+        """
+
+        pass
+
+# TODO figure out how to do migration
+
+
+pop1 = Population(0.9, 1.0, 1.0, 1.0, 100, 100, 0, 0, True)
+
+print(pop1.fitness())

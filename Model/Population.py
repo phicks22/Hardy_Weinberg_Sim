@@ -5,7 +5,7 @@ import numpy as np
 
 class Population:
 
-    def __init__(self, p, w11, w12, w22, n, gen, u, v, inf_pop):
+    def __init__(self, p, w11, w12, w22, n, gen, u, v, m, inf_pop):
         """ Population class for setting a population to calculate object attributes after
          the number of generations given.
 
@@ -19,6 +19,7 @@ class Population:
              gen (int) number of generations the simulation will iterate through
              u (float) representing the forward mutation rate
              v (float) representing the backward mutation rate
+             m (float) representing the migration rate of the populations
              inf_pop (bool) identifies if a population will experience genetic drift (False) or not (True)
          """
         self.p = p
@@ -29,6 +30,7 @@ class Population:
         self.gen = gen
         self.u = u
         self.v = v
+        self.m = m
         self.inf_pop = inf_pop
 
     def fitness(self):
@@ -73,9 +75,21 @@ class Population:
 
         pass
 
-# TODO figure out how to do migration
+    # TODO figure out how to do migration
+
+    def genetic_drift(self):
+        """Calculates the frequency of p after genetic drift using a binomial distribution.
+
+        Args:
+            None
+
+        Returns:
+              None
+
+        """
 
 
-pop1 = Population(0.9, 1.0, 1.0, 1.0, 100, 100, 0, 0, True)
 
-print(pop1.fitness())
+pop_list = Population(0.9, 1.0, 1.0, 1.0, 100, 100, 0, 0, 0, True)
+
+print(pop_list.fitness())

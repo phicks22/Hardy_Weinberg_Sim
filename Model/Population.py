@@ -84,10 +84,23 @@ class Population:
             None
 
         Returns:
-              None
+            None
 
         """
 
+        if self.inf_pop == False:
+
+            prob_transition = ((math.factorial(2 * self.n)) / ((math.factorial(2 * self.n * self.p)) *
+                            (math.factorial((2 * self.n) - (2 * self.n * self.p))))) * (
+                                math.pow(self.p, (2 * self.n * self.p))) * \
+                            (math.pow((1 - self.p), (2 * self.n) - (2 * self.n * self.p)))
+            # np_t = np.random.binomial(1, p_t, self.pop_size)
+
+            pass
+
+        else:
+
+            pass
 
 
 pop_list = Population(0.9, 1.0, 1.0, 1.0, 100, 100, 0, 0, 0, True)

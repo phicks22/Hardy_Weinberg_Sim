@@ -1,5 +1,4 @@
 import math
-import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -74,14 +73,13 @@ class Population:
                     p_over_gen_array.append(p_tf)
 
                 if self.inf_pop == False:
-                    tpr = ((math.factorial(2 * npop)) / ((math.factorial(2 * npop * p_t)) * (math.factorial((2*npop) -
-                            (2 * npop * p_t))))) * (math.pow(p_t, (2 * npop * p_t))) * (math.pow((1 - p_t), (2 * npop) -
-                            (2 * npop * p_t)))
+                    tpr = ((math.factorial(2 * npop)) / ((math.factorial(2 * npop * p_tf)) * (math.factorial((2*npop) -
+                            (2 * npop * p_tf))))) * (math.pow(p_tf, (2 * npop * p_tf))) * (math.pow((1 - p_tf), (2 * npop) -
+                            (2 * npop * p_tf)))
                     # np_t = np.random.binomial(1, p_t, self.pop_size)
-                    if p_t < 1:
-                        hetero = np.random.binomial(1, (self.pop_size - np_t), (hetero / (1 - p_t)))
-                    else:
-                        hetero < - 0
+
+                elif self.inf_pop == True:
+                    p_tf = p_tf
 
                 if p_tf <= 0:
                     break

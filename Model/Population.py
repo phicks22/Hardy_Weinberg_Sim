@@ -1,6 +1,7 @@
 import math
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 
 
 class Population:
@@ -89,33 +90,22 @@ class Population:
         """
 
         if self.inf_pop is False:
+            arr = []
+            for gen in range(self.gen):
+                a = ((math.factorial(2 * self.n)) / ((math.factorial(2 * self.n * round(self.p))) * (math.factorial((2 * self.n) - (2 * self.n * round(self.p))))))
+                b = (math.pow(self.p, (2 * self.n * self.p))) * (math.pow((1 - self.p), (2 * self.n) - (2 * self.n * self.p)))
+                prob_unchanged = a * b
+                if prob_unchanged < 0.5:
+                    self.p = random.uniform(0, 1)
+                    arr.append(self.p)
+                else:
+                    arr.append(self.p)
 
-            prob_transition = ((math.factorial(2 * self.n)) / ((math.factorial(2 * self.n * self.p)) *
-                                                               (math.factorial(
-                                                                   (2 * self.n) - (2 * self.n * self.p))))) * (
-                                  math.pow(self.p, (2 * self.n * self.p))) * \
-                              (math.pow((1 - self.p), (2 * self.n) - (2 * self.n * self.p)))
-            # np_t = np.random.binomial(1, p_t, self.pop_size)
-
-            pass
+            return print(arr)
 
         else:
-
             pass
 
 
-pop = Population(0.9, 0.8, 1.0, 1.0, 100, 10, 0.0, 0.0, 0.0, True)
-
-# def calculate_p(self):
-#     p_list = []
-#     for gen in range(self.gen):
-#         self.fitness()
-#         self.mutation()
-#         self.migration()
-#         self.genetic_drift()
-#         p_list.append(self.p)
-#
-#     print(p_list)
-
-# pop = Population(0.9, 0.8, 1.0, 1.0, 100, 10, 0.0, 0.0, 0.0, True)
-# pop.calculate_p()
+pop = Population(0.9, 0.8, 1.0, 1.0, 10, 100, 0.0, 0.0, 0.0, False)
+pop.genetic_drift()

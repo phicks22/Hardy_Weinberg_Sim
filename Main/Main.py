@@ -1,4 +1,8 @@
 from Model.Population import Population
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+import pandas as pd
 
 
 # # Input population properties (p, w11, w12, w22, n, gen, u, v, m, inf_pop)
@@ -56,10 +60,26 @@ class Main(Population):
                 population.genetic_drift(self)
                 pop_p.append(self.p)
 
-            return pop_p
+            # self.plot(pop_p)
+        return pop_p
+
+    def plot(self, pop_p):
+        t = np.arange(0.0, self.gen, 1)
+        s = pop_p
+
+        fig, ax = plt.subplots()
+        ax.plot(t, s)
+
+        ax.set(xlabel='Generations', ylabel='Frequency',
+               title='p')
+        ax.grid()
+
+        plt.show()
+
+# pop = Main(p, w11, w12, w22, gen, n, u, v, m, inf_pop, num_pop)
 
 
-pop = Main(0.9, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, True, 3)
+pop = Main(0.9, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, False, 3)
 
 
 print(pop.calculate_p_t())

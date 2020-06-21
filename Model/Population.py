@@ -88,7 +88,7 @@ class Population:
 
         """
 
-        if self.inf_pop == False:
+        if self.inf_pop is False:
 
             prob_transition = ((math.factorial(2 * self.n)) / ((math.factorial(2 * self.n * self.p)) *
                             (math.factorial((2 * self.n) - (2 * self.n * self.p))))) * (
@@ -101,3 +101,6 @@ class Population:
         else:
 
             pass
+
+
+pop = Population(0.9, 1, 1, 1, 100, 100, 0, 0, 0, True)

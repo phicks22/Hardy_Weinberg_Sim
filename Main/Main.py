@@ -1,16 +1,63 @@
 from Model.Population import Population
 
-# Input population properties (p, w11, w12, w22, n, gen, u, v, m, inf_pop)
-pop = Population(0.9, 1, 1, 1, 100, 100, 0, 0, 0, True)
-num_pop = 100
+# # Input population properties (p, w11, w12, w22, n, gen, u, v, m, inf_pop)
+# pop = Population(0.9, 1, 1, 1, 100, 100, 0, 0, 0, True)
+# num_pop = 100
+#
+# # Creates list of populations
+# pop_list = []
+#
+# for population in range(num_pop):
+#     pop_list.append(pop)
 
-# Creates list of populations
-pop_list = []
 
-for population in range(num_pop):
-    pop_list.append(pop)
+class Main(Population):
+
+    pop = Population(0.9, 1, 1, 1, 100, 100, 0, 0, 0, True)
+    # num_pop = 100
+    # pop_list = []
+    #
+    # for i in range(num_pop):
+    #     pop_list.append(pop)
+
+    def __init__(self):
+
+        Population.__init__(self, self.fitness(), self.mutation(), self.migration(), self.genetic_drift())
 
 
+
+
+    def calculate_p_t(self, num_pop):
+        """Calculates p over t generations implementing fitness, mutation, migration, and drift.
+
+        Arg:
+            None
+
+        Returns:
+            Visualisation of how p changes over t generations for each population
+
+
+        """
+        pop = Population(0.9, 1, 1, 1, 100, 100, 0, 0, 0, True)
+        num_pop = num_pop
+        pop_list = []
+
+        for i in range(num_pop):
+            pop_list.append(pop)
+
+        for generation in range(self.gen):
+            pop_p = []
+
+            for population in pop_list:
+                population.fitness()
+                population.mutation()
+                population.migration()
+                population.genetic_drift()
+                pop_p.append(self.p)
+
+        return pop_p
+
+pop.calculate_p_t(3)
 
 
 

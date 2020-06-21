@@ -101,20 +101,3 @@ class Population:
         else:
 
             pass
-
-    def calculate_p_t(self):
-        """Calculates p over t generations implementing fitness, mutation, migration, and drift.
-
-        Arg:
-            None
-
-        Returns:
-            Visualisation of how p changes over t generations for each population
-
-
-        """
-
-
-pop_list = Population(0.9, 1.0, 1.0, 1.0, 100, 100, 0, 0, 0, True)
-
-print(pop_list.fitness())

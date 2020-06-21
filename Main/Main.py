@@ -23,24 +23,12 @@ class Main(Population):
 
     num_pop = None
 
-    def __init__(self):
-        self.p = 0.9
-        self.w11 = 1.0
-        self.w12 = 1.0
-        self.w22 = 1.0
-        self.n = 100
-        self.gen = 100
-        self.u = 0.0
-        self.v = 0.0
-        self.m = 0.0
-        self.inf_pop = True
-        self.num_pop = 3
+    def __init__(self, p, w11, w12, w22, gen, n, u, v, m, inf_pop, num_pop):
+        super().__init__(p, w11, w12, w22, gen, n, u, v, m, inf_pop)
+        self.num_pop = num_pop
         self.pop_list = []
 
-        super().__init__(self, self.p, self.w11, self.w12, self.w22, self.gen, self.u, self.v, self.m, self.inf_pop)
-
-    @classmethod
-    def calculate_p_t(cls):
+    def calculate_p_t(self):
         """Calculates p over t generations implementing fitness, mutation, migration, and drift.
 
         Arg:
@@ -55,8 +43,8 @@ class Main(Population):
         # num_pop = num_pop
         # pop_list = []
 
-        for i in range(cls.num_pop):
-            cls.pop_list.append(Population)
+        for i in range(self.num_pop):
+            self.pop_list.append(Population)
 
         for generation in range(self.gen):
             pop_p = []
@@ -68,12 +56,13 @@ class Main(Population):
                 population.genetic_drift(self)
                 pop_p.append(self.p)
 
-        return pop_p
+            return pop_p
 
 
-pop = Main()
+pop = Main(0.9, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, True, 3)
 
-pop.calculate_p_t()
+
+print(pop.calculate_p_t())
 
 # Fitness
 # p^2*w11 + 2pq*w12 + q^2*w22 = 1

@@ -43,7 +43,8 @@ class Population:
             None
 
         """
-        w_bar = (self.w11 * (self.p ** 2.0)) + (self.w12 * (2.0 * self.p * (1.0 - self.p))) + (self.w22 * ((1.0 - self.p) ** 2.0))
+        w_bar = (self.w11 * (self.p ** 2.0)) + (self.w12 * (2.0 * self.p * (1.0 - self.p))) + (
+                    self.w22 * ((1.0 - self.p) ** 2.0))
         p_t = (((self.p ** 2) * self.w11) + (self.p * (1 - self.p) * self.w12) / w_bar)
         self.p = p_t
 
@@ -90,9 +91,10 @@ class Population:
         if self.inf_pop is False:
 
             prob_transition = ((math.factorial(2 * self.n)) / ((math.factorial(2 * self.n * self.p)) *
-                            (math.factorial((2 * self.n) - (2 * self.n * self.p))))) * (
-                                math.pow(self.p, (2 * self.n * self.p))) * \
-                            (math.pow((1 - self.p), (2 * self.n) - (2 * self.n * self.p)))
+                                                               (math.factorial(
+                                                                   (2 * self.n) - (2 * self.n * self.p))))) * (
+                                  math.pow(self.p, (2 * self.n * self.p))) * \
+                              (math.pow((1 - self.p), (2 * self.n) - (2 * self.n * self.p)))
             # np_t = np.random.binomial(1, p_t, self.pop_size)
 
             pass
@@ -101,17 +103,19 @@ class Population:
 
             pass
 
-    def calculate_p(self):
-        p_list = []
-        for gen in range(self.gen):
-            self.fitness()
-            self.mutation()
-            self.migration()
-            self.genetic_drift()
-            p_list.append(self.p)
-
-        print(p_list)
-
 
 pop = Population(0.9, 0.8, 1.0, 1.0, 100, 10, 0.0, 0.0, 0.0, True)
-pop.calculate_p()
+
+# def calculate_p(self):
+#     p_list = []
+#     for gen in range(self.gen):
+#         self.fitness()
+#         self.mutation()
+#         self.migration()
+#         self.genetic_drift()
+#         p_list.append(self.p)
+#
+#     print(p_list)
+
+# pop = Population(0.9, 0.8, 1.0, 1.0, 100, 10, 0.0, 0.0, 0.0, True)
+# pop.calculate_p()

@@ -43,9 +43,8 @@ class Population:
             None
 
         """
-        w_bar = (self.w11 * math.pow(self.p, 2)) + (self.w12 * (2 * self.p * (1 - self.p))) + \
-                (self.w22 * math.pow((1 - self.p), 2))
-        p_t = ((math.pow(self.p, 2) * self.w11) + (self.p * (1 - self.p) * self.w12) / w_bar)
+        w_bar = (self.w11 * (self.p ** 2.0)) + (self.w12 * (2.0 * self.p * (1.0 - self.p))) + (self.w22 * ((1.0 - self.p) ** 2.0))
+        p_t = (((self.p ** 2) * self.w11) + (self.p * (1 - self.p) * self.w12) / w_bar)
         self.p = p_t
 
     def mutation(self):
@@ -59,7 +58,7 @@ class Population:
 
         """
 
-        p_t = (self.p(1 - self.u)) + ((1 - self.p) * self.v)
+        p_t = (self.p * (1.0 - self.u)) + ((1.0 - self.p) * self.v)
         self.p = p_t
 
     def migration(self):
@@ -102,5 +101,17 @@ class Population:
 
             pass
 
+    def calculate_p(self):
+        p_list = []
+        for gen in range(self.gen):
+            self.fitness()
+            self.mutation()
+            self.migration()
+            self.genetic_drift()
+            p_list.append(self.p)
 
-pop = Population(0.9, 1, 1, 1, 100, 100, 0, 0, 0, True)
+        print(p_list)
+
+
+pop = Population(0.9, 0.8, 1.0, 1.0, 100, 10, 0.0, 0.0, 0.0, True)
+pop.calculate_p()

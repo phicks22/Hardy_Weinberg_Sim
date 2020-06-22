@@ -82,7 +82,8 @@ class Main(Population):
 pop = Main(0.9, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, False, 3)
 
 
-print(pop.calculate_p_t())
+# print(pop.calculate_p_t())
+
 
 # Fitness
 # p^2*w11 + 2pq*w12 + q^2*w22 = 1

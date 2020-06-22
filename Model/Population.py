@@ -126,5 +126,5 @@ class Population:
             pass
 
 
-pop = Population(1.0, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, False)
+pop = Population(0.9, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, False)
 pop.genetic_drift()

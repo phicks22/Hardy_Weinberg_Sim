@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
+from collections import defaultdict
 
 
 class Main(Population):
@@ -14,12 +15,10 @@ class Main(Population):
     # # for i in range(num_pop):
     # #     pop_list.append(pop)
 
-    num_pop = None
-
     def __init__(self, p, w11, w12, w22, gen, n, u, v, m, inf_pop, num_pop):
         super().__init__(p, w11, w12, w22, gen, n, u, v, m, inf_pop)
         self.num_pop = num_pop
-        self.pop_list = []
+        self.pop_dict = {}
 
     def calculate_p_t(self):
         """Calculates p over t generations implementing fitness, mutation, migration, and drift.
@@ -32,25 +31,33 @@ class Main(Population):
 
 
         """
-        # pop = Population(0.9, 1, 1, 1, 100, 100, 0, 0, 0, True)
-        # num_pop = num_pop
-        # pop_list = []
+        pop_list = []
 
         for i in range(self.num_pop):
-            self.pop_list.append(Population)
+            pop_list.append(Population)
 
-        for generation in range(self.gen):
-            pop_p = []
+            # self.pop_dict = defaultdict(list)
 
-            for population in self.pop_list:
-                population.fitness(self)
-                population.mutation(self)
-                population.migration(self)
-                population.genetic_drift(self)
-                pop_p.append(self.p)
+        for item in pop_list:
+            self.pop_dict = defaultdict(item)
+            # self.pop_dict[Main].append(item)
 
-            # self.plot(pop_p)
-            return print(pop_p)
+        for key in self.pop_dict:
+            for generation in range(self.gen):
+                pop_p = []
+
+                for population in self.pop_dict:
+                    population.fitness(self)
+                    population.mutation(self)
+                    population.migration(self)
+                    population.genetic_drift(self)
+                    pop_p.append(self.p)
+
+                # self.plot(pop_p)
+                # return print(pop_p)
+            return self.pop_dict[key].append(pop_list)
+
+        return print(self.pop_dict)
 
     def plot(self, pop_p):
         t = np.arange(0.0, self.gen, 1)

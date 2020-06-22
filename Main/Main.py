@@ -5,13 +5,6 @@ import matplotlib.pyplot as plt
 
 class Main(Population):
 
-    # pop = Population(0.9, 1, 1, 1, 100, 100, 0, 0, 0, True)
-    # # num_pop = 100
-    # # pop_list = []
-    # #
-    # # for i in range(num_pop):
-    # #     pop_list.append(pop)
-
     def __init__(self, p, w11, w12, w22, gen, n, u, v, m, inf_pop, num_pop):
         super().__init__(p, w11, w12, w22, gen, n, u, v, m, inf_pop)
         self.num_pop = num_pop

@@ -48,7 +48,6 @@ class Population:
         q = (1 - self.p)
 
         w_bar = (self.w11 * (p ** 2.0)) + (self.w12 * (2.0 * p * q)) + (self.w22 * (q ** 2.0))
-        # p_t = math.sqrt((((self.p ** 2) * self.w11) + (p * q * self.w12) / w_bar))
         p_t = math.sqrt((self.p ** 2) * self.w11 / w_bar)
         q_t = 1 - p_t
         hetero_t = 2 * math.sqrt(p_t) * math.sqrt(q_t)
@@ -56,10 +55,6 @@ class Population:
         self.hetero = hetero_t
         self.p = p_t
         self.q = q_t
-
-        # print(self.p + self.q)
-        # print(self.p)
-        # print(w_bar)
 
     def mutation(self):
         """Calculates the frequency of p after mutation.
@@ -120,7 +115,3 @@ class Population:
 
         else:
             pass
-
-
-# pop = Population(0.5, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, False)
-# pop.genetic_drift()

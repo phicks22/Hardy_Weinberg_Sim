@@ -50,7 +50,7 @@ class Main(Population):
                 pop_p.append(self.p)
 
             # self.plot(pop_p)
-            return pop_p
+            return print(pop_p)
 
     def plot(self, pop_p):
         t = np.arange(0.0, self.gen, 1)
@@ -71,4 +71,4 @@ class Main(Population):
 pop = Main(0.9, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, False, 3)
 
 
-# print(pop.calculate_p_t())
+pop.calculate_p_t()

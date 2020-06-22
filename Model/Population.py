@@ -104,27 +104,25 @@ class Population:
         """
 
         if self.inf_pop is False:
-            arr = []
 
-            for gen in range(self.gen):
-                self.fitness()
-                a = np.random.binomial(self.n, self.p, 1)
-                num_homo_dom = a[0]
-                if self.p < 1:
-                    b = np.random.binomial((self.n - num_homo_dom), self.hetero, 1)
-                    num_hetero = b[0]
-                else:
-                    num_hetero = 0
+            self.fitness()
+            a = np.random.binomial(self.n, self.p, 1)
+            num_homo_dom = a[0]
+            if self.p < 1:
+                b = np.random.binomial((self.n - num_homo_dom), self.p * (1 - self.p), 1)
+                num_hetero = b[0]
+            else:
+                num_hetero = 0
 
-                p = ((2 * num_homo_dom) + num_hetero) / (2 * self.n)
+            p = ((2 * num_homo_dom) + num_hetero) / (2 * self.n)
 
-                arr.append(p)
+            self.p = p
 
-            return print(arr)
+            return self.p
 
         else:
             pass
 
 
-pop = Population(0.9, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, False)
-pop.genetic_drift()
+# pop = Population(0.5, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, False)
+# pop.genetic_drift()

@@ -33,7 +33,8 @@ class Population:
         self.v = v
         self.m = m
         self.inf_pop = inf_pop
-        self.hetero = 2 * self.p * (1 - self.p)
+        self.q = 1 - self.p
+        self.hetero = 2 * self.p * self.q
 
     def fitness(self):
         """Calculates the frequency of p after selection.
@@ -45,12 +46,22 @@ class Population:
             None
 
         """
-        w_bar = (self.w11 * (self.p ** 2.0)) + (self.w12 * (2.0 * self.p * (1.0 - self.p))) + (
-                    self.w22 * ((1.0 - self.p) ** 2.0))
-        p_t = (((self.p ** 2) * self.w11) + (self.p * (1 - self.p) * self.w12) / w_bar)
-        hetero_t = (((self.hetero) * self.w12) / w_bar)
+        p = self.p
+        q = (1 - self.p)
+
+        w_bar = (self.w11 * (p ** 2.0)) + (self.w12 * (2.0 * p * q)) + (self.w22 * (q ** 2.0))
+        # p_t = math.sqrt((((self.p ** 2) * self.w11) + (p * q * self.w12) / w_bar))
+        p_t = math.sqrt((self.p ** 2) * self.w11 / w_bar)
+        q_t = 1 - p_t
+        hetero_t = 2 * math.sqrt(p_t) * math.sqrt(q_t)
+
         self.hetero = hetero_t
         self.p = p_t
+        self.q = q_t
+
+        # print(self.p + self.q)
+        # print(self.p)
+        # print(w_bar)
 
     def mutation(self):
         """Calculates the frequency of p after mutation.
@@ -82,7 +93,7 @@ class Population:
     # TODO figure out how to do migration
 
     def genetic_drift(self):
-        """Calculates the frequency of p after genetic drift using a binomial distribution.
+        """Calculates the frequency of p after genetic drift using binomial distribution.
 
         Args:
             None
@@ -94,28 +105,20 @@ class Population:
 
         if self.inf_pop is False:
             arr = []
-            # for gen in range(self.gen):
-            #     a = ((math.factorial(2 * self.n)) / ((math.factorial(2 * self.n * round(self.p))) * (math.factorial((2 * self.n) - (2 * self.n * round(self.p))))))
-            #     b = (math.pow(self.p, (2 * self.n * self.p))) * (math.pow((1 - self.p), (2 * self.n) - (2 * self.n * self.p)))
-            #     prob_unchanged = a * b
-            #     if prob_unchanged < 0.1:
-            #         self.p = random.uniform(0, 1)
-            #         arr.append(self.p)
-            #     else:
-            #         arr.append(self.p)
 
             for gen in range(self.gen):
                 self.fitness()
                 a = np.random.binomial(self.n, self.p, 1)
                 num_homo_dom = a[0]
                 if self.p < 1:
-                    b = np.random.binomial((self.n - num_homo_dom), self.hetero / (1 - self.p), 1)
+                    b = np.random.binomial((self.n - num_homo_dom), self.hetero, 1)
                     num_hetero = b[0]
                 else:
                     num_hetero = 0
-                self.p = ((2 * num_homo_dom) + num_hetero) / (2 * self.n)
 
-                arr.append(self.p)
+                p = ((2 * num_homo_dom) + num_hetero) / (2 * self.n)
+
+                arr.append(p)
 
             return print(arr)
 
@@ -123,5 +126,5 @@ class Population:
             pass
 
 
-pop = Population(0.9, 0.8, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, False)
+pop = Population(1.0, 1.0, 1.0, 1.0, 100, 100, 0.0, 0.0, 0.0, False)
 pop.genetic_drift()

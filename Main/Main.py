@@ -5,17 +5,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-# # Input population properties (p, w11, w12, w22, n, gen, u, v, m, inf_pop)
-# pop = Population(0.9, 1, 1, 1, 100, 100, 0, 0, 0, True)
-# num_pop = 100
-#
-# # Creates list of populations
-# pop_list = []
-#
-# for population in range(num_pop):
-#     pop_list.append(pop)
-
-
 class Main(Population):
 
     # pop = Population(0.9, 1, 1, 1, 100, 100, 0, 0, 0, True)

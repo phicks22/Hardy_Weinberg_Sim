@@ -74,7 +74,7 @@ class Main(Population):
 # pop = Main(p, w11, w12, w22, gen, n, u, v, m, inf_pop, num_pop)
 
 
-pop = Main(0.2, 0.7, 1.0, 1.0, 1000, 100, 0.0, 0.0, 0.0, False, 1)
+pop = Main(0.5, 0.7, 1.0, 1.0, 1000, 100, 0.0, 0.0, 0.0, False, 1)
 
 
 pop.calculate_p_t()

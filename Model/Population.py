@@ -107,9 +107,7 @@ class Population:
             else:
                 num_hetero = 0
 
-            p = ((2 * num_homo_dom) + num_hetero) / (2 * self.n)
-
-            self.p = p
+            self.p = ((2 * num_homo_dom) + num_hetero) / (2 * self.n)
 
             return self.p
 

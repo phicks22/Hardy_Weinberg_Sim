@@ -1,4 +1,3 @@
-import math
 import numpy as np
 
 
@@ -134,13 +133,3 @@ class Population:
             pop_freq.append(self.p)
 
         return pop_freq
-
-
-# pop = Main(p, w11, w12, w22, n, gen, u, v, m, inf_pop, num_pop)
-
-
-# pop = Population(0.8, 0.7, 1.0, 0.8, 100, 10, 0.0, 0.0, 0.0, False)
-#
-# pop.calculate_p_t()
-#
-# print(pop.calculate_p_t())

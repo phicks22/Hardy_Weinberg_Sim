@@ -1,3 +1,5 @@
+from Model.Population import Population
+from Main.Main import Main
 import numpy as np
 import matplotlib.pyplot as plt
 

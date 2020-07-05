@@ -1,37 +1,20 @@
 from Model.Population import Population
 
-class Main:
 
+class Main:
     num_pops = 3
     pop_dict = dict()
 
+    # Input initial population attributes Population(p, w11, w12, w22, N, generations, u, v, m, infinite pop(bool))
+    # Creates dictionary of Population instances
     for i in range(num_pops):
         pop_dict[i] = Population(0.7, 0.7, 1.0, 0.9, 10, 20, 0.0, 0.0, 0.0, False)
 
+    # Reassigns key values to the list of p frequencies for each Population, [i]
     for key in pop_dict:
         temp_pop = pop_dict[key].calculate_p_t()
-        print(temp_pop)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        pop_dict[key] = temp_pop
+    print(pop_dict)
 
 # class Main(Population):
 #

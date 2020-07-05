@@ -1,14 +1,10 @@
-from Model.Population import Population
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-class Plot(Population):
+class Plot:
 
-    def __init__(self, p, w11, w12, w22, n, gen, u, v, m, inf_pop):
-        super().__init__(p, w11, w12, w22, n, gen, u, v, m, inf_pop)
-
-    def plot(self, pop_freq):
+    def plot(self):
         """Plots frequency of p over x generations for each population.
 
         Args:

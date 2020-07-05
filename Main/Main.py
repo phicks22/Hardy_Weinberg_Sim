@@ -1,6 +1,5 @@
 from Model.Population import Population
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 
@@ -11,7 +10,7 @@ class Main:
     # Input initial population attributes Population(p, w11, w12, w22, N, generations, u, v, m, infinite pop(bool))
     # Creates dictionary of Population instances
     for i in range(num_pops):
-        pop_dict[i] = Population(0.5, 0.4, 0.7, 0.6, 1000, 100, 0.0, 0.0, 0.0, True)
+        pop_dict[i] = Population(0.5, 1.0, 0.3, 1.0, 1000, 100, 0.0, 0.0, 0.0, False)
 
     # Reassigns key values to the list of p frequencies for each Population, [i]
     for key in pop_dict:
@@ -20,6 +19,7 @@ class Main:
 
     # Make a data frame
     df = pd.DataFrame({'x': range(0, 101)})
+    # TODO apply self.gen from Population() to define x-axis (above)
 
     for key in pop_dict:
         y_values = pop_dict[key]

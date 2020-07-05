@@ -48,9 +48,9 @@ class Population:
         q = (1 - self.p)
 
         w_bar = (self.w11 * (p ** 2.0)) + (self.w12 * (2.0 * p * q)) + (self.w22 * (q ** 2.0))
-        p_t = math.sqrt((self.p ** 2) * self.w11 / w_bar)
+        p_t = ((p ** 2) * self.w11) / w_bar
         q_t = 1 - p_t
-        hetero_t = 2 * math.sqrt(p_t) * math.sqrt(q_t)
+        hetero_t = (2 * p * q * self.w12) / w_bar
 
         self.hetero = hetero_t
         self.p = p_t
@@ -98,11 +98,10 @@ class Population:
 
         if self.inf_pop is False:
 
-            # self.fitness()
             a = np.random.binomial(self.n, self.p, 1)
             num_homo_dom = a[0]
             if self.p < 1:
-                b = np.random.binomial((self.n - num_homo_dom), self.p * (1 - self.p), 1)
+                b = np.random.binomial((self.n - num_homo_dom), self.hetero / (1 - self.p), 1)
                 num_hetero = b[0]
             else:
                 num_hetero = 0
@@ -128,9 +127,9 @@ class Population:
         pop_freq = [self.p]
 
         for gen in range(self.gen):
-            self.fitness()
             self.mutation()
             self.migration()
+            self.fitness()
             self.genetic_drift()
             pop_freq.append(self.p)
 

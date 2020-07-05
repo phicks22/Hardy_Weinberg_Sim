@@ -98,7 +98,7 @@ class Population:
 
         if self.inf_pop is False:
 
-            self.fitness()
+            # self.fitness()
             a = np.random.binomial(self.n, self.p, 1)
             num_homo_dom = a[0]
             if self.p < 1:
@@ -113,3 +113,35 @@ class Population:
 
         else:
             pass
+
+    def calculate_p_t(self):
+        """Calculates p over t generations implementing fitness, mutation, migration, and drift.
+
+        Arg:
+            None
+
+        Returns:
+            Visualisation of how p changes over t generations for each population
+
+
+        """
+        pop_freq = [self.p]
+
+        for gen in range(self.gen):
+            self.fitness()
+            self.mutation()
+            self.migration()
+            self.genetic_drift()
+            pop_freq.append(self.p)
+
+        return pop_freq
+
+
+# pop = Main(p, w11, w12, w22, n, gen, u, v, m, inf_pop, num_pop)
+
+
+# pop = Population(0.8, 0.7, 1.0, 0.8, 100, 10, 0.0, 0.0, 0.0, False)
+#
+# pop.calculate_p_t()
+#
+# print(pop.calculate_p_t())

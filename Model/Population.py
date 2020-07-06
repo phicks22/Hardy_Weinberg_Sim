@@ -91,7 +91,7 @@ class Population:
             None
 
         Returns:
-            None
+            self.p
 
         """
 

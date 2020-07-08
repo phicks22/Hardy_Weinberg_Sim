@@ -3,7 +3,8 @@ import numpy as np
 
 class Population:
 
-    def __init__(self, p, w11, w12, w22, n, gen, u, v, m, inf_pop):
+    # You could make default vars in here
+    def __init__(self, p=0.5, w11=1.0, w12=1.0, w22=1.0, n=100, gen=400, u=0.0, v=0.0, m=0.0, inf_pop=False):
         """ Population class for setting a population to calculate object attributes after
          the number of generations given.
 
@@ -32,6 +33,7 @@ class Population:
         self.inf_pop = inf_pop
         self.q = 1 - self.p
         self.hetero = 2 * self.p * self.q
+        self.population_frequency_list = list()
 
     def fitness(self):
         """Calculates the frequency of p after selection.
@@ -91,7 +93,7 @@ class Population:
             None
 
         Returns:
-            self.p
+            None
 
         """
 
@@ -123,13 +125,11 @@ class Population:
 
 
         """
-        pop_freq = [self.p]
+        self.population_frequency_list = [self.p]
 
         for gen in range(self.gen):
             self.mutation()
             self.migration()
             self.fitness()
             self.genetic_drift()
-            pop_freq.append(self.p)
-
-        return pop_freq
+            self.population_frequency_list.append(self.p)

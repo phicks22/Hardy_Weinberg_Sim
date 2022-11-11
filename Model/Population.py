@@ -4,7 +4,19 @@ import numpy as np
 class Population:
 
     # You could make default vars in here
-    def __init__(self, p=0.5, w11=1.0, w12=1.0, w22=1.0, n=100, gen=400, u=0.0, v=0.0, m=0.0, inf_pop=False):
+    def __init__(
+        self,
+        p=0.5,
+        w11=1.0,
+        w12=1.0,
+        w22=1.0,
+        n=100,
+        gen=400,
+        u=0.0,
+        v=0.0,
+        m=0.0,
+        inf_pop=False,
+    ):
         """ Population class for setting a population to calculate object attributes after
          the number of generations given.
 
@@ -46,9 +58,13 @@ class Population:
 
         """
         p = self.p
-        q = (1 - self.p)
+        q = 1 - self.p
 
-        w_bar = (self.w11 * (p ** 2.0)) + (self.w12 * (2.0 * p * q)) + (self.w22 * (q ** 2.0))
+        w_bar = (
+            (self.w11 * (p ** 2.0))
+            + (self.w12 * (2.0 * p * q))
+            + (self.w22 * (q ** 2.0))
+        )
         p_t = ((p ** 2) * self.w11) / w_bar
         q_t = 1 - p_t
         hetero_t = (2 * p * q * self.w12) / w_bar
@@ -102,7 +118,9 @@ class Population:
             a = np.random.binomial(self.n, self.p, 1)
             num_homo_dom = a[0]
             if self.p < 1:
-                b = np.random.binomial((self.n - num_homo_dom), self.hetero / (1 - self.p), 1)
+                b = np.random.binomial(
+                    (self.n - num_homo_dom), self.hetero / (1 - self.p), 1
+                )
                 num_hetero = b[0]
             else:
                 num_hetero = 0

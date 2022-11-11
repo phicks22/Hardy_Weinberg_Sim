@@ -16,10 +16,10 @@ class Main:
         pop_dict[i] = Population()
 
     # style
-    plt.style.use('seaborn')
+    plt.style.use("seaborn")
 
     # Color palette
-    palette = plt.get_cmap('Set1')
+    palette = plt.get_cmap("Set1")
 
     # Reassigns key values to the list of p frequencies for each Population, [i]
     for key in pop_dict:
@@ -28,12 +28,18 @@ class Main:
             x_values = np.arange(0, num_gen + 1)
 
         pop_dict[key].calculate_p_t()
-        plt.plot(x_values, pop_dict.get(key).population_frequency_list, marker='', color=palette(index), linewidth=1.25,
-                 alpha=0.9)
+        plt.plot(
+            x_values,
+            pop_dict.get(key).population_frequency_list,
+            marker="",
+            color=palette(index),
+            linewidth=1.25,
+            alpha=0.9,
+        )
         index += 1
 
     # Titles
-    plt.title("Frequency of p", loc='center', fontsize=12, fontweight=0, color='black')
+    plt.title("Frequency of p", loc="center", fontsize=12, fontweight=0, color="black")
     plt.xlabel("Generations")
     plt.ylabel("Frequency")
     plt.ylim(0, 1)
